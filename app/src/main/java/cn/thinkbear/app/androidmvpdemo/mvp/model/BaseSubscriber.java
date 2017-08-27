@@ -33,7 +33,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
 
         }else if(e instanceof IOException){
-            String msg = null;
+            String msg = e.getMessage();
             /*
             //判断设置是否有网络操作
             if(UtilsInternetStatus.isHasNetWork(this.context)){

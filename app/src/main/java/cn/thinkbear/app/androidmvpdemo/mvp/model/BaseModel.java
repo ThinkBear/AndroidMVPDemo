@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.concurrent.TimeUnit;
 
 import cn.thinkbear.app.androidmvpdemo.service.ApiConstant;
+import cn.thinkbear.app.androidmvpdemo.service.api.IApiExtend;
 import cn.thinkbear.app.androidmvpdemo.utils.MyFindException;
 import cn.thinkbear.app.androidmvpdemo.vo.Query;
 import cn.thinkbear.app.androidmvpdemo.vo.Response;
@@ -27,7 +28,7 @@ public abstract class BaseModel<T> implements IModel<T>{
 
     private Retrofit retrofit = null;
 
-
+    private IApiExtend apiExtend = null;
 
     private IModelCallback callback = null;
     private Context context = null;
@@ -73,6 +74,13 @@ public abstract class BaseModel<T> implements IModel<T>{
         return this.retrofit;
     }
 
+
+    public IApiExtend getApiExtend(){
+        if(this.apiExtend == null){
+            this.apiExtend = this.retrofit.create(IApiExtend.class);
+        }
+        return this.apiExtend;
+    }
 
     @Override
     public Subscription requestQuery(final Query query) {
