@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidMVPDemo</string>
+
+    <string name="hint_error_io">网络请求错误，请重试</string>
+    <string name="hint_error_no_network">当前网络不可用，请检查网络配置</string>
+    <string name="hint_error_orther">发生未知错误，请重试</string>
+    <string name="hint_request_error_data">请求的结果为错误数据</string>
+</resources>

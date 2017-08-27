@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "cn.thinkbear.app.androidmvpdemo"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.2.0'
+
+
+
+    //Retrofit2.0 网络请求框架，底层基于OkHttp
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    //Retrofit接口返回值json数据转复杂对象，Gson转换器
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //让Retrofit支持rxjava开发
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+
+
+    //RxAndroid，根据上面的"com.squareup.retrofit2:adapter-rxjava"，这里用1.2.1版本
+    compile 'io.reactivex:rxandroid:1.2.1'
+}
