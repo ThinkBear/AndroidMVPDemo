@@ -12,6 +12,19 @@ import rx.Subscription;
  */
 
 public interface IModel<T> {
+    /**
+     * 取得订阅对象
+     *
+     * @param query 请求参数数据
+     * @return 返回一个订阅
+     */
     public Subscription requestQuery(Query query);
+
+    /**
+     * 初始化数据层
+     *
+     * @param callback 数据层回调对象
+     * @param context
+     */
     public void initModel(IModelCallback<T> callback, Context context);
 }

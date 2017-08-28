@@ -11,6 +11,9 @@ import rx.Subscription;
 import rx.exceptions.Exceptions;
 
 /**
+ * Subscription 管理类
+ *
+ *
  * @author ThinkBear
  * @version 1.0.0
  * @date 17/4/5

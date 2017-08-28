@@ -13,6 +13,7 @@ import cn.thinkbear.app.androidmvpdemo.vo.Response;
 import rx.Subscriber;
 
 /**
+ *
  * @author ThinkBear
  * @version 1.0.0
  * @date 17/4/20
@@ -28,11 +29,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         MyFindException findException = null;
-        if(e instanceof MyFindException){
-            findException = (MyFindException)e;
-
-
-        }else if(e instanceof IOException){
+        if(e instanceof IOException){
             String msg = e.getMessage();
             /*
             //判断设置是否有网络操作
@@ -46,6 +43,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             findException = new MyFindException(ApiConstant.Error.ORTHER,this.context.getString(R.string.hint_error_orther));
         }
         onFailure(findException);
+        onCompleted();
     }
 
     @Override
@@ -55,10 +53,10 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             if(response.isSuccess()){
                 onSuccess(t);
             }else{
-                onError(new MyFindException(response.getState(),response.getMsg()));
+                onFailure(new MyFindException(response.getState(),response.getMsg()));
             }
         }else{
-            onError(new MyFindException(ApiConstant.Error.ORTHER,this.context.getString(R.string.hint_error_orther)));
+            onFailure(new MyFindException(ApiConstant.Error.ORTHER,this.context.getString(R.string.hint_error_orther)));
         }
     }
 

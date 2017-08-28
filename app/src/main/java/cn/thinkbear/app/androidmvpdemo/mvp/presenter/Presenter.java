@@ -21,8 +21,10 @@ import cn.thinkbear.app.androidmvpdemo.vo.Response;
  */
 
 public class Presenter<T> extends BasePresenter implements IModelCallback<T> {
+
     private IView<T> view = null;
     private IModel<T> model = null;
+
     public Presenter(Context context, IModel model, IView view) {
         this.view = view;
         this.model = model;

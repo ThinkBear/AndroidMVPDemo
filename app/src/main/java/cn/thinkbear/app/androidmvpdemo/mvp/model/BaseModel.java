@@ -27,21 +27,15 @@ import rx.schedulers.Schedulers;
 public abstract class BaseModel<T> implements IModel<T>{
 
     private Retrofit retrofit = null;
-
     private IApiExtend apiExtend = null;
-
     private IModelCallback callback = null;
     private Context context = null;
 
 
     public BaseModel() {
-
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
         builder.connectTimeout(ApiConstant.TIMEOUT_CONNECT, TimeUnit.MILLISECONDS); //设置连接超时时间
         builder.readTimeout(ApiConstant.TIMEOUT_READ, TimeUnit.MILLISECONDS); // 设置读超时时间
-
         //builder.addInterceptor(new VersionInterceptor()); // 设置拦截器，可用于设置统一请求参数、头信息、打印请求信息等操作
         /*
         //对cookie的相关操作，如果请求涉及到cookie的相关操作，可设置此方法
@@ -57,9 +51,7 @@ public abstract class BaseModel<T> implements IModel<T>{
             }
         });
         */
-
         OkHttpClient client = builder.build();
-
         //创建Retrofit对象
         this.retrofit = new Retrofit.Builder()
                 .client(client) //设置OKHttpClien对象
@@ -67,11 +59,6 @@ public abstract class BaseModel<T> implements IModel<T>{
                 .addConverterFactory(GsonConverterFactory.create()) //添加转换器工厂，使用Gson转换
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //添加访问适配器工厂，支持Observable，即RxJava
                 .build();
-
-    }
-
-    public Retrofit getRetrofit() {
-        return this.retrofit;
     }
 
 
@@ -99,7 +86,6 @@ public abstract class BaseModel<T> implements IModel<T>{
             @Override
             public void onFailure(MyFindException e) {
                 callback.onFailure(query, e);
-                onCompleted();
             }
 
         });
@@ -115,8 +101,14 @@ public abstract class BaseModel<T> implements IModel<T>{
 
     public abstract Observable<Response<T>> getObservable(Query query);
 
-
+    /**
+     * 延时访问 （当前为默认值为0，即不进行延时访问操作）
+     *
+     * 如果想设置更长或更短时间，子类覆写此方法，给出新的值
+     *
+     * @return 毫秒值
+     */
     public int getDelay(){
-        return 500;
+        return 0;
     }
 }

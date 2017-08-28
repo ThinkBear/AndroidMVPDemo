@@ -6,6 +6,9 @@ import cn.thinkbear.app.androidmvpdemo.vo.Query;
 import cn.thinkbear.app.androidmvpdemo.vo.Response;
 
 /**
+ *
+ * View层 回调接口
+ *
  * @author ThinkBear
  * @version 1.0.0
  * @date 17/4/17

@@ -9,12 +9,21 @@ package cn.thinkbear.app.androidmvpdemo.vo;
  */
 
 public class Query {
+    private String action;
     private int id_int;
     private String id_str;
     private int type_int;
     private String type_str;
 
     private Object obj;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public int getId_int() {
         return id_int;

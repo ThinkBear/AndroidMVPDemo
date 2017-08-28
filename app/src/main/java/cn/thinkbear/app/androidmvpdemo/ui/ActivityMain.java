@@ -3,6 +3,7 @@ package cn.thinkbear.app.androidmvpdemo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,12 +22,14 @@ import cn.thinkbear.app.androidmvpdemo.vo.Query;
 import cn.thinkbear.app.androidmvpdemo.vo.Response;
 
 /**
+ * Demo
+ *
  * @author ThinkBear
  * @version 1.0.0
  * @date 17/8/27
  */
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener{
 
     private TextView infoTv;
     private Button requestBut;
@@ -40,19 +43,8 @@ public class ActivityMain extends AppCompatActivity {
         this.infoTv = (TextView) super.findViewById(R.id.infoTv);
         this.requestBut = (Button) super.findViewById(R.id.requestBut);
         this.pGet = new Presenter<AndroidUpdate>(super.getApplicationContext(),new MExtendAndroidUpdate(),new GetCallback());
-
-        this.requestBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(pGet.hasSubscriptionRunning()){
-                    appendInfo("当前已有请求在执行。。");
-                    return;
-                }
-                infoTv.setText("");
-                appendInfo("开始请求Api");
-                pGet.requestApi();
-            }
-        });
+        this.requestBut.setOnClickListener(this);
+        this.infoTv.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
     public void appendInfo(String msg){
@@ -63,34 +55,45 @@ public class ActivityMain extends AppCompatActivity {
         this.infoTv.append("\n");
     }
 
+    @Override
+    public void onClick(View v) {
+        if(pGet.hasSubscriptionRunning()){
+            appendInfo("####当前已有请求在执行。。");
+            return;
+        }
+        infoTv.setText("");
+        appendInfo("A：开始请求Api");
+        pGet.requestApi();
+    }
+
     private class GetCallback implements IView<AndroidUpdate>{
 
         @Override
         public Query getQuery() {
-            appendInfo("设置相关请求参数，若返回null，则停止调用");
-            return new Query();
+            appendInfo("B：设置相关请求参数，若返回null，则停止调用");
+            Query query = new Query();
+            query.setId_int(1234);
+            return query;
         }
 
         @Override
         public void requestStart(Query query) {
-            appendInfo("网络请求真正开始。。");
+            appendInfo("C：网络请求真正开始。。");
         }
 
         @Override
         public void requestSuccess(Query query, Response<AndroidUpdate> response) {
-            appendInfo("Api请求成功，接收的数据如下：");
-            appendInfo(new Gson().toJson(response));
+            appendInfo("D：Api请求成功，接收的数据："+new Gson().toJson(response));
         }
 
         @Override
         public void requestFailure(Query query, MyFindException e) {
-            appendInfo("Api请求失败，发生错误：");
-            appendInfo(e.getMessage());
+            appendInfo("E：Api请求失败，发生错误："+e.getMessage());
         }
 
         @Override
         public void requestComplete(Query query) {
-            appendInfo("Api请求结束。。。");
+            appendInfo("F：Api请求结束。。。");
             appendInfo("\n");
         }
     }
@@ -99,6 +102,5 @@ public class ActivityMain extends AppCompatActivity {
     protected void onDestroy() {
         this.pGet.freed();
         super.onDestroy();
-
     }
 }

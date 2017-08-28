@@ -11,10 +11,10 @@ public class ApiConstant {
     public static final int TIMEOUT_READ = 10000;
     public static final int TIMEOUT_CONNECT = 10000;
 
-    public static final String PROJECT = "ThinkBear";
-    public static final String DOMAIN = "github.com";
+    public static final String PROJECT = "PrawnsServiceV2";
+    public static final String DOMAIN = "www.51itexpert.com";
 
-    public static final String BASE_URL = "https://" + DOMAIN + "/" + PROJECT + "/";
+    public static final String BASE_URL = "http://" + DOMAIN + "/" + PROJECT + "/";
 
     public static class Error {
         public static final int ORTHER = -1;
@@ -25,10 +25,8 @@ public class ApiConstant {
 
 
     public static class Parameter {
-        public static final String ACTION = "action";
         public static final String ID = "id";
         public static final String TYPE = "type";
-
 
     }
 
